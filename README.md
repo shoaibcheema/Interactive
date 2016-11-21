@@ -1,4 +1,4 @@
 # Interactive
 InteractiveViewController for iOS, written in swift
 
-![Preview](../interactive.gif?raw=true "Example")
+![Preview](https://raw.githubusercontent.com/SarwarShoaib/Interactive/blob/master/interactive.gif")
