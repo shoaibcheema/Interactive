@@ -1,6 +1,6 @@
 # Interactive
 InteractiveViewController for iOS, written in swift
 
-[Demo on Appetize.io](https://appetize.io/app/84fy4wgv0dzkak3t9mhc6kgfhm?device=iphone5s&scale=75&orientation=portrait&osVersion=9.3)
+[Demo on Appetize.io](https://appetize.io/app/yu2cecz67qvvxcrwagrnfq229m?device=iphone7&scale=75&orientation=portrait&osVersion=10.0)
 
 ![Preview](interactive.gif)
