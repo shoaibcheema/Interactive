@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var diractioLockSwitch: UISwitch!
     @IBOutlet weak var dismissDirectionControll: UISegmentedControl!
+    @IBOutlet weak var maskTypeSegmentedControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,7 @@ class ViewController: UIViewController {
             
             vc.allowedDismissDirection = dismissDirection(rawValue: dismissDirectionControll.selectedSegmentIndex)!
             vc.directionLock = diractioLockSwitch.isOn
+            vc.maskType = InteractiveMaskType(rawValue: UInt(maskTypeSegmentedControl.selectedSegmentIndex))!
             
             vc.showInteractive()
         }

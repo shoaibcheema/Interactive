@@ -10,15 +10,20 @@ import UIKit
 
 
 enum dismissDirection: Int {
-    case top = 0
-    case bottom = 1
-    case both = 2
+    case bottom
+    case top
+    case both
+}
+enum InteractiveMaskType : UInt {
+    case black
+    case clear
 }
 
 class InteractiveViewController: UIViewController {
 
     var allowedDismissDirection: dismissDirection = .both
     var directionLock = false
+    var maskType: InteractiveMaskType = .black
     
     var window: UIWindow?
     var topConstraint: NSLayoutConstraint?
@@ -67,6 +72,7 @@ class InteractiveViewController: UIViewController {
         }
         
         UIView.animate(withDuration: 0.25, animations: {
+            self.window?.backgroundColor = UIColor.clear
             self.window?.layoutIfNeeded()
         }, completion: { finished in
             self.window?.rootViewController = nil
@@ -82,7 +88,6 @@ extension InteractiveViewController: UIGestureRecognizerDelegate {
     func showInteractive() {
         
         window = UIWindow()
-        
         guard let window = window else {
             return
         }
@@ -97,9 +102,12 @@ extension InteractiveViewController: UIGestureRecognizerDelegate {
         addViewControllerToWindowConstraints(self)
         
         topConstraint?.constant = UIScreen.main.bounds.height
-        self.window?.layoutIfNeeded()
+        window.layoutIfNeeded()
         topConstraint?.constant = 0
         UIView.animate(withDuration: 0.5, animations: {
+            if self.maskType == .black {
+                window.backgroundColor = UIColor.black
+            }
             self.window?.layoutIfNeeded()
         })
     }
@@ -122,12 +130,20 @@ extension InteractiveViewController: UIGestureRecognizerDelegate {
     
     private func didPan(_ y: CGFloat) {
         topConstraint?.constant = y
+        if self.maskType == .black && window != nil{
+            let alpha = abs(self.view.bounds.height/2 - self.view.center.y)/(self.view.bounds.height/2)
+//            let alpha: Float = Float(self.window!.bounds.height/y)
+            self.window?.backgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: Float(1 - alpha))
+        }
     }
     
     func resetWindow() {
         topConstraint?.constant = 0
         
         UIView.animate(withDuration: 0.25, animations: {
+            if self.maskType == .black {
+                self.window?.backgroundColor = UIColor.black
+            }
             self.window?.layoutIfNeeded()
         })
     }
