@@ -19,11 +19,6 @@ class ExampleViewController: InteractiveViewController {
 
 ```swift
 if let vc = storyboard?.instantiateViewController(withIdentifier: "ExampleViewController") as? InteractiveViewController {
-            
-            vc.allowedDismissDirection = dismissDirection(rawValue: dismissDirectionControll.selectedSegmentIndex)!
-            vc.directionLock = diractioLockSwitch.isOn
-            vc.maskType = InteractiveMaskType(rawValue: UInt(maskTypeSegmentedControl.selectedSegmentIndex))!
-            
             vc.showInteractive()
         }
 ```
