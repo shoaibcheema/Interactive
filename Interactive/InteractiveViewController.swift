@@ -108,6 +108,8 @@ extension InteractiveViewController: UIGestureRecognizerDelegate {
         UIView.animate(withDuration: 0.5, animations: {
             if self.maskType == .black {
                 window.backgroundColor = UIColor.black
+            } else if self.maskType == .darkBlur {
+                window.backgroundColor = UIColor(rgb: 0x000000, alpha: 0.7)
             }
             self.window?.layoutIfNeeded()
         })
@@ -134,7 +136,8 @@ extension InteractiveViewController: UIGestureRecognizerDelegate {
         if self.maskType == .black && window != nil{
             let alpha = abs(self.view.bounds.height/2 - self.view.center.y)/(self.view.bounds.height/2)
 //            let alpha: Float = Float(self.window!.bounds.height/y)
-            self.window?.backgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: Float(1 - alpha))
+//            self.window?.backgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: Float(1 - alpha))
+            self.window?.backgroundColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 1 - alpha)
         }
     }
     
