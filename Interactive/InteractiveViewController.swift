@@ -8,15 +8,16 @@
 
 import UIKit
 
-
 enum dismissDirection: Int {
     case bottom
     case top
     case both
+    case none
 }
 enum InteractiveMaskType : UInt {
     case black
     case clear
+    case darkBlur
 }
 
 class InteractiveViewController: UIViewController {
@@ -143,6 +144,8 @@ extension InteractiveViewController: UIGestureRecognizerDelegate {
         UIView.animate(withDuration: 0.25, animations: {
             if self.maskType == .black {
                 self.window?.backgroundColor = UIColor.black
+            } else if self.maskType == .darkBlur {
+                self.window?.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
             }
             self.window?.layoutIfNeeded()
         })
@@ -166,10 +169,10 @@ extension InteractiveViewController: UIGestureRecognizerDelegate {
             if sender.state == UIGestureRecognizerState.ended {
                 let velocity = sender.velocity(in: self.view)
                 
-                if velocity.y < -100 && allowedDismissDirection != .bottom {
+                if velocity.y < -100 && (allowedDismissDirection == .top || allowedDismissDirection == .both)  {
                     dismissWindow(.top)
                 }
-                else if velocity.y > 100  && allowedDismissDirection != .top{
+                else if velocity.y > 100  && (allowedDismissDirection == .bottom || allowedDismissDirection == .both){
                     dismissWindow(.bottom)
                 } else {
                     resetWindow()
@@ -178,5 +181,3 @@ extension InteractiveViewController: UIGestureRecognizerDelegate {
         }
     }
 }
-
-
